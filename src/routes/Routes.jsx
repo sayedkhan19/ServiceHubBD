@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
+import PopularService from "../components/HomeElementPages/PopularService";
+import PopularDetails from "../pages/PopularDetails";
 
 
 
@@ -14,6 +16,15 @@ export const router = createBrowserRouter([
         {
             index:true,
             Component: Home,
+        },
+        {
+            path:"/popular-services",
+            Component: PopularService,
+        },
+        {
+            path:"/popular-details/:id",
+            Component:PopularDetails,
+            loader: ()=> fetch("../popularServices.json"),
         }
     ]
   },

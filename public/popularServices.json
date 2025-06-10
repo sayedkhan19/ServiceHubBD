@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "1",
+    "name": "Bridal Makeup Package",
+    "description": "Full bridal makeover including hair, makeup, and dressing.",
+    "price": 150,
+    "area": "Dhanmondi, Dhaka",
+    "image": "https://i.ibb.co/YL65xFz/bridal-makeup.jpg"
+  },
+  {
+    "_id": "2",
+    "name": "Haircut & Styling",
+    "description": "Trendy haircut with personalized styling for all hair types.",
+    "price": 25,
+    "area": "Gulshan, Dhaka",
+    "image": "https://i.ibb.co/D5Fqg2r/haircut-style.jpg"
+  },
+  {
+    "_id": "3",
+    "name": "Men’s Grooming",
+    "description": "Haircut, beard shaping, facial, and massage.",
+    "price": 30,
+    "area": "Banani, Dhaka",
+    "image": "https://i.ibb.co/Y29kxpc/mens-grooming.jpg"
+  },
+  {
+    "_id": "4",
+    "name": "Spa & Body Massage",
+    "description": "Relaxing full body massage and spa therapy.",
+    "price": 80,
+    "area": "Uttara, Dhaka",
+    "image": "https://i.ibb.co/6rJbsZx/spa-massage.jpg"
+  },
+  {
+    "_id": "5",
+    "name": "Facial & Skin Treatment",
+    "description": "Glow facial with herbal treatment for skin rejuvenation.",
+    "price": 40,
+    "area": "Mirpur, Dhaka",
+    "image": "https://i.ibb.co/ZVP5Wq6/facial.jpg"
+  },
+  {
+    "_id": "6",
+    "name": "Nail Art & Manicure",
+    "description": "Premium nail art with gel polish and full manicure.",
+    "price": 35,
+    "area": "Bashundhara, Dhaka",
+    "image": "https://i.ibb.co/sgYKYkP/nail-art.jpg"
+  }
+]
