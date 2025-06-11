@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Register = () => {
-  const {createUser} = useContext(AuthContext)
+  const {createUser,updateUser,setUser} = useContext(AuthContext)
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -14,18 +15,23 @@ const Register = () => {
 
     console.log({ name, email, photo, password });
     createUser(email,password)
-    .then((result)=>{
+    .then((result) => {
       const user = result.user;
-      console.log(user)
+      updateUser({ displayName: name, photoURL: photo })
+        .then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+          toast.success("Successfully Registered");
+          // navigate(location.state?.from || "/");
+        })
+        .catch((err) => {
+          console.log("Update Error:", err);
+          setUser(user);
+        });
     })
-    .catch(error=>{
-      // const errorCode = error.code;
-      const errormessage = error.message;
-      alert(errormessage);
-    })
-
-    // Optionally: Validate password here or trigger backend call
-  };
+    .catch((error) => {
+      alert(error.message);
+    });
+};
 
   const handlePopUp = () => {
     // Add Google sign-up logic
