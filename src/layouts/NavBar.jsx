@@ -45,7 +45,7 @@ const NavBar = () => {
     </>
   );
 
-  // User (logged in) navigation including dashboard dropdown
+  
   const userLinks = (
     <>
       {commonLinks}
@@ -99,7 +99,7 @@ const NavBar = () => {
             {user ? userLinks : guestLinks}
           </ul>
         </div>
-        <NavLink to="/" className="btn btn-ghost text-xl">Roommate</NavLink>
+        <NavLink to="/" className="btn btn-ghost text-xl">ServiceHubBD</NavLink>
       </div>
 
       {/* Desktop nav links */}

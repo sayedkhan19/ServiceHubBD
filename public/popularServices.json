@@ -46,5 +46,37 @@
     "price": 35,
     "area": "Bashundhara, Dhaka",
     "image": "https://i.ibb.co/6RGDV23p/65114.jpg"
+  },
+  {
+    "_id": "7",
+    "name": "Party Makeup & Styling",
+    "description": "Glamorous makeup and hairstyle perfect for parties or events.",
+    "price": 60,
+    "area": "Mohammadpur, Dhaka",
+    "image": "https://i.ibb.co/0yrM2Td9/52202.jpg"
+  },
+  {
+    "_id": "8",
+    "name": "Hair Coloring & Highlights",
+    "description": "Professional hair coloring with modern highlight techniques.",
+    "price": 70,
+    "area": "Baridhara, Dhaka",
+    "image": "https://i.ibb.co/93dQJgMr/2150668430.jpg"
+  },
+  {
+    "_id": "9",
+    "name": "Henna & Mehndi Design",
+    "description": "Traditional and modern mehndi art for hands and feet.",
+    "price": 20,
+    "area": "Old Dhaka",
+    "image": "https://i.ibb.co/tT6sxnX8/2148074857.jpg"
+  },
+  {
+    "_id": "10",
+    "name": "Foot Spa & Pedicure",
+    "description": "Relaxing pedicure with foot soak, scrub, and massage.",
+    "price": 30,
+    "area": "Rampura, Dhaka",
+    "image": "https://i.ibb.co/GQdPBVRr/34.jpg"
   }
 ]

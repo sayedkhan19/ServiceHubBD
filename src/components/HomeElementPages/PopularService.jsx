@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 
 const PopularService = () => {
-    const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     fetch('/popularServices.json')
@@ -17,7 +17,7 @@ const PopularService = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map(service => (
+        {services.slice(0, 6).map(service => (
           <div
             key={service._id}
             className="border rounded-2xl shadow-md p-5 hover:shadow-lg transition-all"
@@ -38,7 +38,7 @@ const PopularService = () => {
         ))}
       </div>
     </div>
-    );
+  );
 };
 
 export default PopularService;

@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="flex items-center gap-3">
           {/* Replace with your logo image path */}
           <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain rounded-full" />
-          <span className="text-xl font-semibold">YourWebsiteName</span>
+          <span className="text-xl font-semibold">ServiceHubBD</span>
         </div>
 
         {/* Social Links */}
@@ -36,7 +36,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="mt-6 text-center text-sm text-gray-400">
-        © {new Date().getFullYear()} YourWebsiteName. All rights reserved.
+        © {new Date().getFullYear()} ServiceHubBD. All rights reserved.
       </div>
     </footer>
   );
