@@ -12,6 +12,7 @@ import AddServises from "../ServisesPage/AddServises";
 import ManageService from "../ServisesPage/ManageService";
 import BookedServices from "../ServisesPage/BookedServices";
 import ServiceToDo from "../ServisesPage/ServiceToDo";
+import AllServices from "../pages/AllServices";
 
 
 
@@ -31,7 +32,9 @@ export const router = createBrowserRouter([
         },
         {
             path:"/popular-details/:id",
-            Component:PopularDetails,
+            element:<PrivateRoutes>
+                <PopularDetails></PopularDetails>
+            </PrivateRoutes>,
             loader: ()=> fetch("../popularServices.json"),
         },
         {
@@ -41,6 +44,11 @@ export const router = createBrowserRouter([
         {
             path:"/register",
             Component:Register,
+        },
+        {
+            path:"/allservices",
+            Component:AllServices,
+            loader:()=> fetch("../popularServices.json")
         },
         {
             path:"/dashboard",

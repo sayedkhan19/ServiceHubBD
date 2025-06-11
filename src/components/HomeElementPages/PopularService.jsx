@@ -12,7 +12,7 @@ const PopularService = () => {
 
   return (
     <div className="px-4 md:px-8 lg:px-16 py-10">
-      <h2 className="text-3xl font-bold text-center mb-8 text-pink-600">
+      <h2 className="text-3xl font-bold text-center mb-8 text-purple-700">
         Popular Beauty & Grooming Services
       </h2>
 
@@ -27,11 +27,11 @@ const PopularService = () => {
               alt={service.name}
               className="rounded-xl w-full h-48 object-cover mb-4"
             />
-            <h3 className="text-xl font-semibold text-pink-700">{service.name}</h3>
+            <h3 className="text-xl font-semibold text-purple-700">{service.name}</h3>
             <p className="text-gray-600 mb-2">{service.description}</p>
             <p><strong>Price:</strong> ${service.price}</p>
-            <p><strong>Area:</strong> {service.area}</p>
-            <NavLink to={`/popular-details/${service._id}`} className="mt-3 bg-pink-500 hover:bg-pink-600 text-white py-1 px-4 rounded-lg">
+            <p className='mb-3'><strong>Area:</strong> {service.area}</p>
+            <NavLink to={`/popular-details/${service._id}`} className="my-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
               View Details
             </NavLink>
           </div>
