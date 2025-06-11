@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import PopularService from "../components/HomeElementPages/PopularService";
 import PopularDetails from "../pages/PopularDetails";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 
 
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
         {
             path:"/login",
             Component: Login,
+        },
+        {
+            path:"/register",
+            Component:Register,
         }
     ]
   },
