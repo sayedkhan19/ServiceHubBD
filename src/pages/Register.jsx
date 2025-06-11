@@ -19,7 +19,7 @@ const Register = () => {
       console.log(user)
     })
     .catch(error=>{
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errormessage = error.message;
       alert(errormessage);
     })
