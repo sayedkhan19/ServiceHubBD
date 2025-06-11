@@ -6,6 +6,12 @@ import PopularService from "../components/HomeElementPages/PopularService";
 import PopularDetails from "../pages/PopularDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoutes from "./PrivateRoutes";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AddServises from "../ServisesPage/AddServises";
+import ManageService from "../ServisesPage/ManageService";
+import BookedServices from "../ServisesPage/BookedServices";
+import ServiceToDo from "../ServisesPage/ServiceToDo";
 
 
 
@@ -35,6 +41,30 @@ export const router = createBrowserRouter([
         {
             path:"/register",
             Component:Register,
+        },
+        {
+            path:"/dashboard",
+            element:<PrivateRoutes>
+                <DashboardLayout></DashboardLayout>
+            </PrivateRoutes>,
+            children:[
+                {
+                    path:"/dashboard/add-service",
+                    Component:AddServises,
+                },
+                {
+                    path:"/dashboard/manage-service",
+                    Component:ManageService,
+                },
+                {
+                    path:"/dashboard/booked-services",
+                    Component:BookedServices,
+                },
+                {
+                    path:"/dashboard/service-to-do",
+                    Component:ServiceToDo,
+                }
+            ]
         }
     ]
   },

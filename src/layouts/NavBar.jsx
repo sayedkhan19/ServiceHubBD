@@ -13,48 +13,75 @@ const NavBar = () => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Logout failed");
       });
   };
 
+  // Common links for both guest and logged-in users
   const commonLinks = (
     <>
       <li>
-        <NavLink to="/" className={({ isActive }) => (isActive ? "border-2 font-bold" : "font-semibold text-gray-500")}>
+        <NavLink to="/" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink to="/" className={({ isActive }) => (isActive ? "border-2 font-bold" : "font-semibold text-gray-500")}>
+        <NavLink to="/services" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
           Services
         </NavLink>
       </li>
     </>
   );
 
+  // Guest navigation
   const guestLinks = (
     <>
       {commonLinks}
       <li>
-        <NavLink to="/login" className={({ isActive }) => (isActive ? "border-2 font-bold" : "font-semibold text-gray-500")}>
+        <NavLink to="/login" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
           Login
         </NavLink>
       </li>
     </>
   );
 
+  // User (logged in) navigation including dashboard dropdown
   const userLinks = (
     <>
       {commonLinks}
-      <li>
-        <NavLink to="/" className={({ isActive }) => (isActive ? "border-2 font-bold" : "font-semibold text-gray-500")}>
-          Dashboard
-        </NavLink>
+      <li tabIndex={0}>
+        <details>
+          <summary className="font-semibold text-gray-500">Dashboard</summary>
+          <ul className="p-2 bg-base-100 rounded-md shadow-md z-10">
+            <li>
+              <NavLink to="/dashboard/add-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+                Add Service
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/manage-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+                Manage Service
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/booked-services" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+                Booked Services
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/service-to-do" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+                Service To-Do
+              </NavLink>
+            </li>
+          </ul>
+        </details>
       </li>
     </>
   );
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
+      {/* Mobile dropdown start */}
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -68,19 +95,21 @@ const NavBar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52">
             {user ? userLinks : guestLinks}
           </ul>
         </div>
         <NavLink to="/" className="btn btn-ghost text-xl">Roommate</NavLink>
       </div>
 
+      {/* Desktop nav links */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           {user ? userLinks : guestLinks}
         </ul>
       </div>
 
+      {/* User avatar and logout */}
       <div className="navbar-end flex items-center gap-3">
         {user && (
           <>
