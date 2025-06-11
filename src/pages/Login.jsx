@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-  const {signIn} = useContext(AuthContext)
+  const {signIn,googlePopUp,setUser} = useContext(AuthContext);
+   const navigate = useNavigate();
+    const location = useLocation();
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,8 +24,17 @@ const Login = () => {
   };
 
   const handlePopUp = () => {
-    // Add Google Login logic here
-    console.log("Google Login clicked");
+    googlePopUp()
+        .then((result) => {
+          const user = result.user;
+          setUser(user);
+          navigate(location.state ? location.state : "/");
+          toast.success("Login with Google successful!");
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error(error.message);
+        });
   };
 
   return (

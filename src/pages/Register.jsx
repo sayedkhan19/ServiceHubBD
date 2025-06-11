@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 
 const Register = () => {
-  const {createUser,updateUser,setUser} = useContext(AuthContext)
+  const {createUser,updateUser,setUser,googlePopUp} = useContext(AuthContext);
+  const navigate = useNavigate();
+    const location = useLocation();
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -35,7 +37,16 @@ const Register = () => {
 
   const handlePopUp = () => {
     // Add Google sign-up logic
-    console.log('Google Signup Clicked');
+     googlePopUp().then(result => {
+      const user = result.user;
+      setUser(user);
+      toast.success("Login with Google successful!");
+      navigate(location.state ? location.state : "/");
+    })
+    .catch(error => {
+      console.error(error);
+      toast.error(error.message);
+    });
   };
 
   return (
