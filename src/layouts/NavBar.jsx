@@ -30,6 +30,7 @@ const NavBar = () => {
          All Services
         </NavLink>
       </li>
+      
     </>
   );
 
@@ -54,22 +55,22 @@ const NavBar = () => {
           <summary className="font-semibold text-gray-500">Dashboard</summary>
           <ul className="p-2 bg-base-100 rounded-md shadow-md z-10">
             <li>
-              <NavLink to="/dashboard/add-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+              <NavLink to="/add-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
                 Add Service
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/manage-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+              <NavLink to="/manage-service" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
                 Manage Service
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/booked-services" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+              <NavLink to="/booked-services" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
                 Booked Services
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/service-to-do" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+              <NavLink to="/service-to-do" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
                 Service To-Do
               </NavLink>
             </li>

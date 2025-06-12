@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { NavLink, useLoaderData } from 'react-router';
 
+
 const AllServices = () => {
     const serviceData = useLoaderData();
     const [searchText, setSearchText] = useState("");
@@ -23,8 +24,9 @@ const AllServices = () => {
     setFilteredServices(filtered);
   }, [searchText, serviceData]);
 
-    return (
-         <div className="min-h-screen bg-gray-50 px-4 py-8">
+    return ( 
+        <>
+    <div className="min-h-screen bg-gray-50 px-4 py-8">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center text-purple-700">All Services</h1>
 
@@ -71,6 +73,9 @@ const AllServices = () => {
                   <div className="text-sm text-gray-800 font-bold mb-3">
                     Price: ${service.price}
                   </div>
+
+                  
+
                   <NavLink to={`/popular-details/${service._id}`} className="my-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
                     View Details
                   </NavLink>
@@ -81,6 +86,12 @@ const AllServices = () => {
         )}
       </div>
     </div>
+        
+        
+        <h1 className='text-3xl font-bold mb-6 text-center text-purple-700'>
+            All Available services
+        </h1>
+        </>
     );
 };
 

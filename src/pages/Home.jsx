@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PopularService from '../components/HomeElementPages/PopularService';
 import WhyChooseUs from '../components/HomeElementPages/WhyChooseUs';
 import Testimonials from '../components/HomeElementPages/Testimonials';
@@ -12,7 +12,12 @@ const Home = () => {
           <div>
             <Slider></Slider>
           </div>
-      <div> <PopularService></PopularService></div> 
+      <div> 
+        <Suspense fallback={<span className="loading loading-spinner text-primary"></span>}>
+        <PopularService></PopularService>
+        </Suspense>
+        
+        </div> 
 
       <div>
         <WhyChooseUs></WhyChooseUs>

@@ -5,7 +5,9 @@
     "description": "Full bridal makeover including hair, makeup, and dressing.",
     "price": 150,
     "area": "Dhanmondi, Dhaka",
-    "image": "https://i.ibb.co/p96g6RJ/1287.jpg"
+    "image": "https://i.ibb.co/p96g6RJ/1287.jpg",
+    "userName": "Ayesha Khan",
+    "userEmail": "ayesha.khan@example.com"
   },
   {
     "_id": "2",
@@ -13,7 +15,9 @@
     "description": "Trendy haircut with personalized styling for all hair types.",
     "price": 25,
     "area": "Gulshan, Dhaka",
-    "image": "https://i.ibb.co/TxLzb1Ld/2147778795.jpg"
+    "image": "https://i.ibb.co/TxLzb1Ld/2147778795.jpg",
+    "userName": "Zara Rahman",
+    "userEmail": "zara.rahman@example.com"
   },
   {
     "_id": "3",
@@ -21,7 +25,9 @@
     "description": "Haircut, beard shaping, facial, and massage.",
     "price": 30,
     "area": "Banani, Dhaka",
-    "image": "https://i.ibb.co/bM46czgw/2148256925.jpg"
+    "image": "https://i.ibb.co/bM46czgw/2148256925.jpg",
+    "userName": "Tariq Hasan",
+    "userEmail": "tariq.hasan@example.com"
   },
   {
     "_id": "4",
@@ -29,7 +35,9 @@
     "description": "Relaxing full body massage and spa therapy.",
     "price": 80,
     "area": "Uttara, Dhaka",
-    "image": "https://i.ibb.co/1Yq8xB29/2150911815.jpg"
+    "image": "https://i.ibb.co/1Yq8xB29/2150911815.jpg",
+    "userName": "Nadia Islam",
+    "userEmail": "nadia.islam@example.com"
   },
   {
     "_id": "5",
@@ -37,7 +45,9 @@
     "description": "Glow facial with herbal treatment for skin rejuvenation.",
     "price": 40,
     "area": "Mirpur, Dhaka",
-    "image": "https://i.ibb.co/N2WQRSkz/18790.jpg"
+    "image": "https://i.ibb.co/N2WQRSkz/18790.jpg",
+    "userName": "Farzana Chowdhury",
+    "userEmail": "farzana.chowdhury@example.com"
   },
   {
     "_id": "6",
@@ -45,7 +55,9 @@
     "description": "Premium nail art with gel polish and full manicure.",
     "price": 35,
     "area": "Bashundhara, Dhaka",
-    "image": "https://i.ibb.co/6RGDV23p/65114.jpg"
+    "image": "https://i.ibb.co/6RGDV23p/65114.jpg",
+    "userName": "Lubna Alam",
+    "userEmail": "lubna.alam@example.com"
   },
   {
     "_id": "7",
@@ -53,7 +65,9 @@
     "description": "Glamorous makeup and hairstyle perfect for parties or events.",
     "price": 60,
     "area": "Mohammadpur, Dhaka",
-    "image": "https://i.ibb.co/0yrM2Td9/52202.jpg"
+    "image": "https://i.ibb.co/0yrM2Td9/52202.jpg",
+    "userName": "Mehjabin Nahar",
+    "userEmail": "mehjabin.nahar@example.com"
   },
   {
     "_id": "8",
@@ -61,7 +75,9 @@
     "description": "Professional hair coloring with modern highlight techniques.",
     "price": 70,
     "area": "Baridhara, Dhaka",
-    "image": "https://i.ibb.co/93dQJgMr/2150668430.jpg"
+    "image": "https://i.ibb.co/93dQJgMr/2150668430.jpg",
+    "userName": "Rezaul Karim",
+    "userEmail": "rezaul.karim@example.com"
   },
   {
     "_id": "9",
@@ -69,7 +85,9 @@
     "description": "Traditional and modern mehndi art for hands and feet.",
     "price": 20,
     "area": "Old Dhaka",
-    "image": "https://i.ibb.co/tT6sxnX8/2148074857.jpg"
+    "image": "https://i.ibb.co/tT6sxnX8/2148074857.jpg",
+    "userName": "Shamima Akter",
+    "userEmail": "shamima.akter@example.com"
   },
   {
     "_id": "10",
@@ -77,6 +95,8 @@
     "description": "Relaxing pedicure with foot soak, scrub, and massage.",
     "price": 30,
     "area": "Rampura, Dhaka",
-    "image": "https://i.ibb.co/GQdPBVRr/34.jpg"
+    "image": "https://i.ibb.co/GQdPBVRr/34.jpg",
+    "userName": "Mithila Hossain",
+    "userEmail": "mithila.hossain@example.com"
   }
 ]
