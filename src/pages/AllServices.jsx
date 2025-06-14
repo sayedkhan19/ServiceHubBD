@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { NavLink, useLoaderData } from 'react-router';
+import Allservices2 from './Allservices2';
 
 
 const AllServices = () => {
@@ -39,7 +40,10 @@ const AllServices = () => {
             className="w-full p-3 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
+{/* <h1>My Own services</h1>
+<Allservices2>
 
+</Allservices2> */}
         {loading ? (
           <div className="flex justify-center items-center mt-20">
             <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
@@ -88,9 +92,7 @@ const AllServices = () => {
     </div>
         
         
-        <h1 className='text-3xl font-bold mb-6 text-center text-purple-700'>
-            All Available services
-        </h1>
+        
         </>
     );
 };

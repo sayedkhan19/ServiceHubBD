@@ -28,7 +28,15 @@ const PopularService = () => {
               className="rounded-xl w-full h-48 object-cover mb-4"
             />
             <h3 className="text-xl font-semibold text-purple-700">{service.name}</h3>
+           
             <p className="text-gray-600 mb-2">{service.description}</p>
+
+            <div className='flex gap-2 mb-2 items-center'>
+          
+          <strong>Provider:</strong> <img className='rounded-full bg-black w-10 h-10' src={service.userImg} alt="" /> {service.userName}
+         
+          </div>
+
             <p><strong>Price:</strong> ${service.price}</p>
             <p className='mb-3'><strong>Area:</strong> {service.area}</p>
             <NavLink to={`/popular-details/${service._id}`} className="my-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">

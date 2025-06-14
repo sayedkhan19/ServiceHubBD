@@ -48,6 +48,12 @@ const PopularDetails = () => {
           />
           <h2 className="text-3xl font-bold text-purple-700 mb-2">{selectedService.name}</h2>
           <p className="text-gray-600 mb-4">{selectedService.description}</p>
+          
+          <div className='flex gap-2 mb-2 items-center'>
+          
+          <strong>Provider:</strong> <img className='rounded-full bg-black w-10 h-10' src={selectedService.userImg} alt="" /> {selectedService.userName}
+         
+          </div>
           <p className="text-lg mb-2">
             <strong>Price:</strong> ${selectedService.price}
           </p>

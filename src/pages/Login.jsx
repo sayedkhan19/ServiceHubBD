@@ -7,6 +7,7 @@ const Login = () => {
   const {signIn,googlePopUp,setUser} = useContext(AuthContext);
    const navigate = useNavigate();
     const location = useLocation();
+    const from = location.state || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,6 +17,7 @@ const Login = () => {
     signIn(email,password)
     .then(result=>{
       const user = result.user;
+      navigate(from)
       console.log(user)
     })
     .catch(error=>{

@@ -7,6 +7,7 @@ const Register = () => {
   const {createUser,updateUser,setUser,googlePopUp} = useContext(AuthContext);
   const navigate = useNavigate();
     const location = useLocation();
+    const from = location.state || "/";
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -23,7 +24,7 @@ const Register = () => {
         .then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
           toast.success("Successfully Registered");
-          // navigate(location.state?.from || "/");
+          navigate(from);
         })
         .catch((err) => {
           console.log("Update Error:", err);
