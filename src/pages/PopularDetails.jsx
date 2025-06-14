@@ -1,66 +1,92 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData, useParams } from 'react-router';
+import Modal from 'react-modal';
+import { AuthContext } from '../Provider/AuthProvider';
+ // update this based on your auth hook
+
+Modal.setAppElement('#root');
 
 const PopularDetails = () => {
-  const services = useLoaderData(); // Get all services
-  const { id } = useParams(); // Get the service ID from the route
+  const services = useLoaderData();
+  const { id } = useParams();
   const [selectedService, setSelectedService] = useState(null);
   const [bookmarked, setBookmarked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Load the selected service based on the ID
+  const { user } = useContext(AuthContext); // get current user info
+
+  const [formData, setFormData] = useState({
+    date: '',
+    instruction: '',
+    userEmail: '',
+    userName: ''
+  });
+
   useEffect(() => {
     const details = services.find(service => service._id === id);
     setSelectedService(details);
 
-    // Check if this service is already bookmarked
     const stored = JSON.parse(localStorage.getItem('bookmarkedServices')) || [];
     const alreadyBookmarked = stored.some(s => s._id === id);
     setBookmarked(alreadyBookmarked);
-  }, [services, id]);
 
-  // Handle Bookmark Button Click
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        userEmail: user.email || '',
+        userName: user.displayName || ''
+      }));
+    }
+  }, [services, id, user]);
+
   const handleBookMark = () => {
+    setIsModalOpen(true); // open modal instead
+  };
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleConfirmBooking = () => {
     if (!selectedService) return;
 
-    const stored = JSON.parse(localStorage.getItem('bookmarkedServices')) || [];
+    const bookingData = {
+      ...selectedService,
+      bookingDate: formData.date,
+      instruction: formData.instruction,
+      userEmail: formData.userEmail,
+      userName: formData.userName,
+    };
 
-    const isAlreadyBookmarked = stored.some(s => s._id === selectedService._id);
+    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    stored.push(bookingData);
+    localStorage.setItem('bookedServices', JSON.stringify(stored));
 
-    if (!isAlreadyBookmarked) {
-      stored.push(selectedService);
-      localStorage.setItem('bookmarkedServices', JSON.stringify(stored));
-      setBookmarked(true);
-      toast.success('Service Bookmarked!');
-    } else {
-      toast.error('Already Bookmarked');
-    }
+    toast.success('Service booked successfully!');
+    setIsModalOpen(false);
+    setBookmarked(true);
   };
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
       {selectedService ? (
         <>
-          <img
-            src={selectedService.image}
-            alt={selectedService.name}
-            className="rounded-xl w-full h-64 object-cover mb-6"
-          />
+          <img src={selectedService.image} alt={selectedService.name} className="rounded-xl w-full h-64 object-cover mb-6" />
           <h2 className="text-3xl font-bold text-purple-700 mb-2">{selectedService.name}</h2>
           <p className="text-gray-600 mb-4">{selectedService.description}</p>
-          
+
           <div className='flex gap-2 mb-2 items-center'>
-          
-          <strong>Provider:</strong> <img className='rounded-full bg-black w-10 h-10' src={selectedService.userImg} alt="" /> {selectedService.userName}
-         
+            <strong>Provider:</strong>
+            <img className='rounded-full bg-black w-10 h-10' src={selectedService.userImg} alt="" />
+            {selectedService.userName}
           </div>
-          <p className="text-lg mb-2">
-            <strong>Price:</strong> ${selectedService.price}
-          </p>
-          <p className="text-lg mb-4">
-            <strong>Area:</strong> {selectedService.area}
-          </p>
-          
+          <p className="text-lg mb-2"><strong>Price:</strong> ${selectedService.price}</p>
+          <p className="text-lg mb-4"><strong>Area:</strong> {selectedService.area}</p>
 
           {!bookmarked ? (
             <button
@@ -78,6 +104,45 @@ const PopularDetails = () => {
       ) : (
         <p className="text-center text-gray-600">Loading service details...</p>
       )}
+
+      {/* Booking Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className="bg-white max-w-xl mx-auto p-6 rounded shadow-lg"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      >
+        <h2 className="text-xl font-bold mb-4 text-purple-700">Book This Service</h2>
+
+        <form className="space-y-4">
+          <input name="userName" value={formData.userName} readOnly className="w-full p-2 border rounded" />
+          <input name="userEmail" value={formData.userEmail} readOnly className="w-full p-2 border rounded" />
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+            className="w-full p-2 border rounded"
+            placeholder="Service Date"
+          />
+          <textarea
+            name="instruction"
+            value={formData.instruction}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded"
+            placeholder="Special Instructions"
+          />
+
+          <button
+            type="button"
+            onClick={handleConfirmBooking}
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 w-full"
+          >
+            Book Now
+          </button>
+        </form>
+      </Modal>
     </div>
   );
 };
