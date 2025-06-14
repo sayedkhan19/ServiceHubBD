@@ -22,7 +22,8 @@ const Slider = () => {
           loop={true}
           className="w-full h-full"
         >
-          {slides.map((slide, index) => (
+          {slides &&
+          slides?.map((slide, index) => (
             <SwiperSlide key={index}>
               <img
                 src={slide}

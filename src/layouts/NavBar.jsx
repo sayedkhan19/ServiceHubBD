@@ -100,7 +100,7 @@ const NavBar = () => {
             {user ? userLinks : guestLinks}
           </ul>
         </div>
-        <NavLink to="/" className="btn btn-ghost text-xl">ServiceHubBD</NavLink>
+        <NavLink to="/" className="btn btn-ghost text-xl hidden lg:block">ServiceHubBD</NavLink>
       </div>
 
       {/* Desktop nav links */}

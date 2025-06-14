@@ -32,7 +32,8 @@ const Bookmarks = () => {
 
       {bookings.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {bookings.map((item, idx) => (
+          {bookings &&
+          bookings?.map((item, idx) => (
             <div key={idx} className="border p-4 rounded shadow relative">
               <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded mb-4" />
               <h3 className="text-xl font-semibold text-purple-600">{item.name}</h3>

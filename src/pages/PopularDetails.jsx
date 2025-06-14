@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { useLoaderData, useParams } from 'react-router';
 import Modal from 'react-modal';
 import { AuthContext } from '../Provider/AuthProvider';
- // update this based on your auth hook
 
 Modal.setAppElement('#root');
 
@@ -14,7 +13,7 @@ const PopularDetails = () => {
   const [bookmarked, setBookmarked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { user } = useContext(AuthContext); // get current user info
+  const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     date: '',
@@ -41,7 +40,7 @@ const PopularDetails = () => {
   }, [services, id, user]);
 
   const handleBookMark = () => {
-    setIsModalOpen(true); // open modal instead
+    setIsModalOpen(true); // open modal
   };
 
   const handleInputChange = e => {
@@ -53,6 +52,12 @@ const PopularDetails = () => {
   };
 
   const handleConfirmBooking = () => {
+    // Manual validation for required fields
+    if (!formData.date.trim() || !formData.instruction.trim()) {
+      toast.error('Please fill in all required fields!');
+      return;
+    }
+
     if (!selectedService) return;
 
     const bookingData = {
@@ -70,6 +75,13 @@ const PopularDetails = () => {
     toast.success('Service booked successfully!');
     setIsModalOpen(false);
     setBookmarked(true);
+
+    // Optionally clear input
+    setFormData(prev => ({
+      ...prev,
+      date: '',
+      instruction: ''
+    }));
   };
 
   return (
@@ -115,14 +127,25 @@ const PopularDetails = () => {
         <h2 className="text-xl font-bold mb-4 text-purple-700">Book This Service</h2>
 
         <form className="space-y-4">
-          <input name="userName" value={formData.userName} readOnly className="w-full p-2 border rounded" />
-          <input name="userEmail" value={formData.userEmail} readOnly className="w-full p-2 border rounded" />
+          <input
+            name="userName"
+            value={formData.userName}
+            readOnly
+            className="w-full p-2 border rounded"
+            placeholder="Your Name"
+          />
+          <input
+            name="userEmail"
+            value={formData.userEmail}
+            readOnly
+            className="w-full p-2 border rounded"
+            placeholder="Your Email"
+          />
           <input
             type="date"
             name="date"
             value={formData.date}
             onChange={handleInputChange}
-            required
             className="w-full p-2 border rounded"
             placeholder="Service Date"
           />

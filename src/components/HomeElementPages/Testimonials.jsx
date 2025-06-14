@@ -29,7 +29,8 @@ const Testimonials = () => {
           What Our Clients Say
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((t, i) => {
+          {testimonials &&
+          testimonials?.map((t, i) => {
             const ref = useRef(null);
             const inView = useInView(ref, { threshold: 0.4 });
             const controls = useAnimation();

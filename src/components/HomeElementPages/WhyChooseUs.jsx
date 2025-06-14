@@ -33,7 +33,8 @@ const WhyChooseUs = () => {
           Why Choose Us
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {items.map((item, i) => (
+          {items &&
+          items?.map((item, i) => (
             <motion.div
               key={i}
               className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"

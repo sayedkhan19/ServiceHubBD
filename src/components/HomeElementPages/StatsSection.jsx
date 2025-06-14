@@ -37,7 +37,8 @@ const StatsSection = () => {
           Our Impact in Numbers
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((stat, i) => (
+          {stats &&
+          stats?.map((stat, i) => (
             <motion.div 
               key={i}
               className="bg-white p-8 rounded-xl shadow hover:shadow-lg transition text-center"
