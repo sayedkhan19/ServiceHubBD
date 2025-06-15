@@ -11,7 +11,7 @@ const ManageService = () => {
         <div>
             <Suspense fallback={<span className="loading loading-spinner text-primary"></span>}>
                 <GetAllServices 
-                myServicePromise={myServicePromise(user.email)}
+                myServicePromise={myServicePromise(user?.email)}
                 ></GetAllServices>
             </Suspense>
         </div>
