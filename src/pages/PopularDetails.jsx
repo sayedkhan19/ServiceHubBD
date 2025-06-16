@@ -10,7 +10,7 @@ const PopularDetails = () => {
   const services = useLoaderData();
   const { id } = useParams();
   const [selectedService, setSelectedService] = useState(null);
-  const [bookmarked, setBookmarked] = useState(false);
+  const [booked, setBooked] = useState(false); // changed from bookmarked -> booked
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
@@ -26,9 +26,12 @@ const PopularDetails = () => {
     const details = services.find(service => service._id === id);
     setSelectedService(details);
 
-    const stored = JSON.parse(localStorage.getItem('bookmarkedServices')) || [];
-    const alreadyBookmarked = stored.some(s => s._id === id);
-    setBookmarked(alreadyBookmarked);
+    // Check if current user already booked this service
+    const bookedServices = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    const alreadyBooked = bookedServices.some(
+      (booking) => booking._id === id && booking.userEmail === user?.email
+    );
+    setBooked(alreadyBooked);
 
     if (user) {
       setFormData(prev => ({
@@ -40,7 +43,7 @@ const PopularDetails = () => {
   }, [services, id, user]);
 
   const handleBookMark = () => {
-    setIsModalOpen(true); // open modal
+    setIsModalOpen(true);
   };
 
   const handleInputChange = e => {
@@ -52,7 +55,6 @@ const PopularDetails = () => {
   };
 
   const handleConfirmBooking = () => {
-    // Manual validation for required fields
     if (!formData.date.trim() || !formData.instruction.trim()) {
       toast.error('Please fill in all required fields!');
       return;
@@ -66,17 +68,29 @@ const PopularDetails = () => {
       instruction: formData.instruction,
       userEmail: formData.userEmail,
       userName: formData.userName,
+      status: 'Pending'
     };
 
     const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+
+    // Prevent duplicate booking on confirm button (extra safety)
+    const isAlreadyBooked = stored.some(
+      (booking) => booking._id === selectedService._id && booking.userEmail === user?.email
+    );
+    if (isAlreadyBooked) {
+      toast.error('You have already booked this service!');
+      setIsModalOpen(false);
+      setBooked(true);
+      return;
+    }
+
     stored.push(bookingData);
     localStorage.setItem('bookedServices', JSON.stringify(stored));
 
     toast.success('Service booked successfully!');
     setIsModalOpen(false);
-    setBookmarked(true);
+    setBooked(true);
 
-    // Optionally clear input
     setFormData(prev => ({
       ...prev,
       date: '',
@@ -100,7 +114,7 @@ const PopularDetails = () => {
           <p className="text-lg mb-2"><strong>Price:</strong> ${selectedService.price}</p>
           <p className="text-lg mb-4"><strong>Area:</strong> {selectedService.area}</p>
 
-          {!bookmarked ? (
+          {!booked ? (
             <button
               onClick={handleBookMark}
               className="my-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
@@ -109,7 +123,7 @@ const PopularDetails = () => {
             </button>
           ) : (
             <div className="my-4 p-4 bg-green-100 text-green-800 rounded">
-              ✅ This service has been bookmarked!
+              ✅ You have already booked this service!
             </div>
           )}
         </>

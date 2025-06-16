@@ -1,11 +1,86 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Provider/AuthProvider';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 const ServiceToDo = () => {
-    return (
-        <div>
-            vcvdfbvdf
+  const { user } = useContext(AuthContext);
+  const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    const userBookings = stored.filter(item => item.userEmail === user?.email);
+    setBookings(userBookings);
+  }, [user?.email]);
+
+  const handleRemoveBooking = (id) => {
+    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+
+    // Remove booking only for the current user
+    const updated = stored.filter(item => !(item._id === id && item.userEmail === user?.email));
+    localStorage.setItem('bookedServices', JSON.stringify(updated));
+
+    // Update UI
+    const userBookings = updated.filter(item => item.userEmail === user?.email);
+    setBookings(userBookings);
+
+    toast.success('Booking removed!');
+  };
+
+  const handleDetailsClick = (id) => {
+    navigate(`/popular-details/${id}`);
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold text-purple-700 mb-6">My Bookings</h2>
+
+      {bookings.length > 0 ? (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead className="bg-purple-100">
+              <tr>
+                <th className="py-3 px-4 border">Service</th>
+                <th className="py-3 px-4 border">Customer</th>
+                <th className="py-3 px-4 border">Price</th>
+                <th className="py-3 px-4 border">Date</th>
+                <th className="py-3 px-4 border">Status</th>
+                <th className="py-3 px-4 border">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((item) => (
+                <tr key={item._id} className="text-center">
+                  <td className="py-2 px-4 border">{item.name}</td>
+                  <td className="py-2 px-4 border">{item.userName}</td>
+                  <td className="py-2 px-4 border">${item.price}</td>
+                  <td className="py-2 px-4 border">{item.bookingDate}</td>
+                  <td className="py-2 px-4 border text-sm text-blue-600">{item.status || 'Pending'}</td>
+                  <td className="py-2 px-4 border flex gap-2 justify-center">
+                    <button
+                      onClick={() => handleDetailsClick(item._id)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                    >
+                      Details
+                    </button>
+                    <button
+                      onClick={() => handleRemoveBooking(item._id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-    );
+      ) : (
+        <p className="text-gray-500">No bookings found.</p>
+      )}
+    </div>
+  );
 };
 
 export default ServiceToDo;

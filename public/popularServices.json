@@ -7,7 +7,8 @@
     "area": "Dhanmondi, Dhaka",
     "image": "https://i.ibb.co/p96g6RJ/1287.jpg",
     "userName": "Ayesha Khan",
-    "userImg": ""
+    "userImg": "",
+    "status": "pending"
   },
   {
     "_id": "2",
@@ -17,7 +18,8 @@
     "area": "Gulshan, Dhaka",
     "image": "https://i.ibb.co/TxLzb1Ld/2147778795.jpg",
     "userName": "Zara Rahman",
-    "userImg": ""
+    "userImg": "",
+    "status": "working"
   },
   {
     "_id": "3",
@@ -27,7 +29,8 @@
     "area": "Banani, Dhaka",
     "image": "https://i.ibb.co/bM46czgw/2148256925.jpg",
     "userName": "Tariq Hasan",
-    "userImg": "tariq.hasan@example.com"
+    "userImg": "tariq.hasan@example.com",
+    "status": "completed"
   },
   {
     "_id": "4",
@@ -37,7 +40,8 @@
     "area": "Uttara, Dhaka",
     "image": "https://i.ibb.co/1Yq8xB29/2150911815.jpg",
     "userName": "Nadia Islam",
-    "userImg": "nadia.islam@example.com"
+    "userImg": "nadia.islam@example.com",
+    "status": "pending"
   },
   {
     "_id": "5",
@@ -47,7 +51,8 @@
     "area": "Mirpur, Dhaka",
     "image": "https://i.ibb.co/N2WQRSkz/18790.jpg",
     "userName": "Farzana Chowdhury",
-    "userImg": "farzana.chowdhury@example.com"
+    "userImg": "farzana.chowdhury@example.com",
+    "status": "completed"
   },
   {
     "_id": "6",
@@ -57,7 +62,8 @@
     "area": "Bashundhara, Dhaka",
     "image": "https://i.ibb.co/6RGDV23p/65114.jpg",
     "userName": "Lubna Alam",
-    "userImg": "lubna.alam@example.com"
+    "userImg": "lubna.alam@example.com",
+    "status": "pending"
   },
   {
     "_id": "7",
@@ -67,7 +73,8 @@
     "area": "Mohammadpur, Dhaka",
     "image": "https://i.ibb.co/0yrM2Td9/52202.jpg",
     "userName": "Mehjabin Nahar",
-    "userImg": "mehjabin.nahar@example.com"
+    "userImg": "mehjabin.nahar@example.com",
+    "status": "completed"
   },
   {
     "_id": "8",
@@ -77,7 +84,8 @@
     "area": "Baridhara, Dhaka",
     "image": "https://i.ibb.co/93dQJgMr/2150668430.jpg",
     "userName": "Rezaul Karim",
-    "userImg": "rezaul.karim@example.com"
+    "userImg": "rezaul.karim@example.com",
+    "status": "working"
   },
   {
     "_id": "9",
@@ -87,7 +95,8 @@
     "area": "Old Dhaka",
     "image": "https://i.ibb.co/tT6sxnX8/2148074857.jpg",
     "userName": "Shamima Akter",
-    "userImg": "shamima.akter@example.com"
+    "userImg": "shamima.akter@example.com",
+    "status": "pending"
   },
   {
     "_id": "10",
@@ -97,6 +106,7 @@
     "area": "Rampura, Dhaka",
     "image": "https://i.ibb.co/GQdPBVRr/34.jpg",
     "userName": "Mithila Hossain",
-    "userImg": "mithila.hossain@example.com"
+    "userImg": "mithila.hossain@example.com",
+    "status": "working"
   }
 ]
