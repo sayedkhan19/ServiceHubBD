@@ -3,6 +3,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 Modal.setAppElement('#root');
 
@@ -12,7 +13,7 @@ const GetAllServices = ({ myServicePromise }) => {
 
   const [allServices, setAllServices] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [editService, setEditService] = useState(null); // currently editing service
+  const [editService, setEditService] = useState(null); 
 
   useEffect(() => {
     setAllServices(services);
@@ -32,32 +33,23 @@ const GetAllServices = ({ myServicePromise }) => {
   };
 
   // Handle update form submit
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    const form = e.target;
+ const handleUpdate = (e) => {
+  e.preventDefault();
+  const form = e.target;
 
-    const updatedService = {
-      serviceName: form.serviceName.value,
-      description: form.description.value,
-      serviceArea: form.serviceArea.value,
-      price: form.price.value,
-      imageUrl: form.imageUrl.value,
-      // optionally: userName, userPhoto, userEmail could be kept same or updated
-    };
+  const updatedService = {
+    serviceName: form.serviceName.value,
+    description: form.description.value,
+    serviceArea: form.serviceArea.value,
+    price: form.price.value,
+    imageUrl: form.imageUrl.value,
+  };
 
-    try {
-      const res = await fetch(`http://localhost:3000/service/${editService._id}`, {
-        method: 'PUT', // You need to create this route in your backend
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedService),
-      });
-
-      const data = await res.json();
-
-      if (data.modifiedCount > 0) {
-        // Update UI locally
-        setAllServices((prev) =>
-          prev.map((service) =>
+  axios.put(`http://localhost:3000/service/${editService._id}`, updatedService)
+    .then(res => {
+      if (res.data.modifiedCount > 0) {
+        setAllServices(prev =>
+          prev.map(service =>
             service._id === editService._id ? { ...service, ...updatedService } : service
           )
         );
@@ -66,43 +58,43 @@ const GetAllServices = ({ myServicePromise }) => {
       } else {
         toast.error('Failed to update service');
       }
-    } catch (error) {
+    })
+    .catch(error => {
       toast.error('Error updating service');
       console.error(error);
-    }
-  };
+    });
+};
+
 
   // Delete handler with Swal confirmation (unchanged)
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: "Are you sure to delete?",
-      text: "",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const res = await fetch(`http://localhost:3000/service/${id}`, {
-            method: 'DELETE',
-          });
-          const data = await res.json();
-
-          if (data.deletedCount > 0) {
+ const handleDelete = (id) => {
+  Swal.fire({
+    title: "Are you sure to delete?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios.delete(`http://localhost:3000/service/${id}`)
+        .then(res => {
+          if (res.data.deletedCount > 0) {
             setAllServices(prev => prev.filter(service => service._id !== id));
             Swal.fire("Deleted!", "Your service has been deleted.", "success");
           } else {
             toast.error("Failed to delete the service.");
           }
-        } catch (error) {
+        })
+        .catch(error => {
           toast.error("An error occurred while deleting.");
           console.error("Delete error:", error);
-        }
-      }
-    });
-  };
+        });
+    }
+  });
+};
+
 
   return (
     <div className="w-full my-10">

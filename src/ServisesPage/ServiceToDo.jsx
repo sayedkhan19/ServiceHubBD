@@ -14,14 +14,32 @@ const ServiceToDo = () => {
     setBookings(userBookings);
   }, [user?.email]);
 
+  const updateStatus = (id, newStatus) => {
+    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    
+    // Update the status of the booking for the current user
+    const updated = stored.map(item => {
+      if (item._id === id && item.userEmail === user?.email) {
+        return { ...item, status: newStatus };
+      }
+      return item;
+    });
+
+    localStorage.setItem('bookedServices', JSON.stringify(updated));
+
+    // Update UI bookings state to reflect change
+    const userBookings = updated.filter(item => item.userEmail === user?.email);
+    setBookings(userBookings);
+
+    toast.success(`Status updated to "${newStatus}"`);
+  };
+
   const handleRemoveBooking = (id) => {
     const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
 
-    // Remove booking only for the current user
     const updated = stored.filter(item => !(item._id === id && item.userEmail === user?.email));
     localStorage.setItem('bookedServices', JSON.stringify(updated));
 
-    // Update UI
     const userBookings = updated.filter(item => item.userEmail === user?.email);
     setBookings(userBookings);
 
@@ -56,7 +74,17 @@ const ServiceToDo = () => {
                   <td className="py-2 px-4 border">{item.userName}</td>
                   <td className="py-2 px-4 border">${item.price}</td>
                   <td className="py-2 px-4 border">{item.bookingDate}</td>
-                  <td className="py-2 px-4 border text-sm text-blue-600">{item.status || 'Pending'}</td>
+                  <td className="py-2 px-4 border">
+                    <select
+                      value={item.status || 'Pending'}
+                      onChange={(e) => updateStatus(item._id, e.target.value)}
+                      className="border border-gray-300 rounded p-1 text-center"
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Working">Working</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                  </td>
                   <td className="py-2 px-4 border flex gap-2 justify-center">
                     <button
                       onClick={() => handleDetailsClick(item._id)}
