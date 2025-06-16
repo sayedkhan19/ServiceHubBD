@@ -2,25 +2,81 @@ import React, { use, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 const GetAllServices = ({ myServicePromise }) => {
   const { user } = useContext(AuthContext);
   const services = use(myServicePromise);
 
   const [allServices, setAllServices] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editService, setEditService] = useState(null); // currently editing service
 
-  // Initialize state from props
   useEffect(() => {
     setAllServices(services);
   }, [services]);
 
   const myServices = allServices.filter(service => service.userEmail === user?.email);
 
-  // Delete handler with Swal confirmation
+  // Open modal and set the service to edit
+  const openEditModal = (service) => {
+    setEditService(service);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setEditService(null);
+  };
+
+  // Handle update form submit
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const updatedService = {
+      serviceName: form.serviceName.value,
+      description: form.description.value,
+      serviceArea: form.serviceArea.value,
+      price: form.price.value,
+      imageUrl: form.imageUrl.value,
+      // optionally: userName, userPhoto, userEmail could be kept same or updated
+    };
+
+    try {
+      const res = await fetch(`http://localhost:3000/service/${editService._id}`, {
+        method: 'PUT', // You need to create this route in your backend
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedService),
+      });
+
+      const data = await res.json();
+
+      if (data.modifiedCount > 0) {
+        // Update UI locally
+        setAllServices((prev) =>
+          prev.map((service) =>
+            service._id === editService._id ? { ...service, ...updatedService } : service
+          )
+        );
+        toast.success('Service updated successfully');
+        closeModal();
+      } else {
+        toast.error('Failed to update service');
+      }
+    } catch (error) {
+      toast.error('Error updating service');
+      console.error(error);
+    }
+  };
+
+  // Delete handler with Swal confirmation (unchanged)
   const handleDelete = async (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Are you sure to delete?",
+      text: "",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -35,7 +91,6 @@ const GetAllServices = ({ myServicePromise }) => {
           const data = await res.json();
 
           if (data.deletedCount > 0) {
-            // Remove from UI
             setAllServices(prev => prev.filter(service => service._id !== id));
             Swal.fire("Deleted!", "Your service has been deleted.", "success");
           } else {
@@ -57,13 +112,11 @@ const GetAllServices = ({ myServicePromise }) => {
 
       {myServices.length > 0 ? (
         <div className="space-y-6">
-          {myServices &&
-          myServices?.map(service => (
+          {myServices.map(service => (
             <div
               key={service._id}
               className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col md:flex-row"
             >
-              {/* Left Side - Image */}
               <div className="md:w-1/3 w-full">
                 <img
                   src={service.imageUrl}
@@ -72,7 +125,6 @@ const GetAllServices = ({ myServicePromise }) => {
                 />
               </div>
 
-              {/* Right Side - Details */}
               <div className="p-4 md:w-2/3 flex flex-col justify-between">
                 <div>
                   <h4 className="text-2xl font-bold mb-2 text-purple-600">
@@ -94,7 +146,10 @@ const GetAllServices = ({ myServicePromise }) => {
                   </div>
 
                   <div className="space-x-2">
-                    <button className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 text-sm">
+                    <button
+                      onClick={() => openEditModal(service)}
+                      className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 text-sm"
+                    >
                       Edit
                     </button>
                     <button
@@ -114,6 +169,105 @@ const GetAllServices = ({ myServicePromise }) => {
           You haven't added any services yet.
         </div>
       )}
+
+      {/* Modal for Editing */}
+      <Modal
+  isOpen={modalIsOpen}
+  onRequestClose={closeModal}
+  contentLabel="Edit Service"
+  className="max-w-7xl mx-auto mt-8 bg-white p-8 rounded shadow-lg outline-none
+             h-[90vh] overflow-y-auto
+             lg:grid lg:grid-cols-2 lg:gap-8"
+  overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start overflow-auto"
+>
+  <h2 className="text-3xl font-bold mb-6 col-span-2">Edit Service</h2>
+
+  {editService && (
+    <form
+      onSubmit={handleUpdate}
+      className="grid grid-cols-1 gap-6 col-span-2
+                 lg:grid-cols-2 lg:gap-8"
+    >
+      {/* Service Name */}
+      <div>
+        <label className="block font-semibold mb-2">Service Name</label>
+        <input
+          name="serviceName"
+          type="text"
+          defaultValue={editService.serviceName}
+          required
+          className="w-full border border-gray-300 p-3 rounded"
+        />
+      </div>
+
+      {/* Price */}
+      <div>
+        <label className="block font-semibold mb-2">Price</label>
+        <input
+          name="price"
+          type="number"
+          defaultValue={editService.price}
+          required
+          className="w-full border border-gray-300 p-3 rounded"
+        />
+      </div>
+
+      {/* Description */}
+      <div className="lg:col-span-2">
+        <label className="block font-semibold mb-2">Description</label>
+        <textarea
+          name="description"
+          defaultValue={editService.description}
+          required
+          className="w-full border border-gray-300 p-3 rounded"
+          rows={4}
+        />
+      </div>
+
+      {/* Service Area */}
+      <div>
+        <label className="block font-semibold mb-2">Service Area</label>
+        <input
+          name="serviceArea"
+          type="text"
+          defaultValue={editService.serviceArea}
+          required
+          className="w-full border border-gray-300 p-3 rounded"
+        />
+      </div>
+
+      {/* Image URL */}
+      <div>
+        <label className="block font-semibold mb-2">Image URL</label>
+        <input
+          name="imageUrl"
+          type="text"
+          defaultValue={editService.imageUrl}
+          required
+          className="w-full border border-gray-300 p-3 rounded"
+        />
+      </div>
+
+      {/* Buttons span full width on large screens */}
+      <div className="flex justify-end gap-4 lg:col-span-2 mt-6">
+        <button
+          type="button"
+          onClick={closeModal}
+          className="px-6 py-3 bg-gray-300 rounded hover:bg-gray-400"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="px-6 py-3 bg-purple-600 text-white rounded hover:bg-purple-700"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  )}
+</Modal>
+
     </div>
   );
 };
