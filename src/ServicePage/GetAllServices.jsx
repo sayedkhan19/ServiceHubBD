@@ -1,11 +1,53 @@
-import React, { use, useContext } from 'react';
+import React, { use, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const GetAllServices = ({ myServicePromise }) => {
   const { user } = useContext(AuthContext);
   const services = use(myServicePromise);
 
-  const myServices = services.filter(service => service.userEmail === user?.email);
+  const [allServices, setAllServices] = useState([]);
+
+  // Initialize state from props
+  useEffect(() => {
+    setAllServices(services);
+  }, [services]);
+
+  const myServices = allServices.filter(service => service.userEmail === user?.email);
+
+  // Delete handler with Swal confirmation
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await fetch(`http://localhost:3000/service/${id}`, {
+            method: 'DELETE',
+          });
+          const data = await res.json();
+
+          if (data.deletedCount > 0) {
+            // Remove from UI
+            setAllServices(prev => prev.filter(service => service._id !== id));
+            Swal.fire("Deleted!", "Your service has been deleted.", "success");
+          } else {
+            toast.error("Failed to delete the service.");
+          }
+        } catch (error) {
+          toast.error("An error occurred while deleting.");
+          console.error("Delete error:", error);
+        }
+      }
+    });
+  };
 
   return (
     <div className="w-full my-10">
@@ -33,7 +75,9 @@ const GetAllServices = ({ myServicePromise }) => {
               {/* Right Side - Details */}
               <div className="p-4 md:w-2/3 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-2xl font-bold mb-2 text-purple-600">{service.serviceName}</h4>
+                  <h4 className="text-2xl font-bold mb-2 text-purple-600">
+                    {service.serviceName}
+                  </h4>
                   <p className="text-gray-600 text-sm mb-2">{service.description}</p>
                   <p className="text-gray-700 font-medium">Area: {service.serviceArea}</p>
                   <p className="text-purple-600 font-semibold">Price: ${service.price}</p>
@@ -53,7 +97,10 @@ const GetAllServices = ({ myServicePromise }) => {
                     <button className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 text-sm">
                       Edit
                     </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm">
+                    <button
+                      onClick={() => handleDelete(service._id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                    >
                       Delete
                     </button>
                   </div>

@@ -28,9 +28,10 @@ const Bookmarks = () => {
     <div className="max-w-4xl mx-auto px-6 py-10">
       <h2 className="text-3xl font-bold text-purple-700 mb-8 border-b pb-2 text-center md:text-left">My Booked Services</h2>
 
-      {bookings.length > 0 ? (
+      {bookings?.length > 0 ? (
         <div className="flex flex-col gap-8">
-          {bookings.map((item, idx) => (
+          {bookings &&
+          bookings?.map((item, idx) => (
             <div
               key={idx}
               className="flex flex-col md:flex-row border border-gray-300 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
