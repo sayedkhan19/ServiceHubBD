@@ -88,7 +88,7 @@ const ServiceToDo = () => {
                   <td className="py-2 px-4 border flex gap-2 justify-center">
                     <button
                       onClick={() => handleDetailsClick(item._id)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                      className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded"
                     >
                       Details
                     </button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import logoImg from "../../assets/beauty.png"
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
         {/* Logo & Name */}
         <div className="flex items-center gap-3">
           {/* Replace with your logo image path */}
-          <img src="/logo.png" alt="Logo" className="h-10 w-10 object-contain rounded-full" />
+          <img src={logoImg} alt="Logo" className="h-10 w-10 object-contain rounded-full" />
           <span className="text-xl font-semibold">ServiceHubBD</span>
         </div>
 

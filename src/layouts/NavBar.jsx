@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router';
 import { useContext } from 'react';
+import logoImg from "../../src/assets/beauty.png";
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
+
 
 const NavBar = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -100,7 +102,10 @@ const NavBar = () => {
             {user ? userLinks : guestLinks}
           </ul>
         </div>
-        <NavLink to="/" className="btn btn-ghost text-xl hidden lg:block">ServiceHubBD</NavLink>
+        <div className='flex items-center gap-1'>
+          <img className='h-10 w-10' src={logoImg} alt="logo" />
+          <NavLink to="/" className="font-bold text-xl hidden lg:block">ServiceHubBD</NavLink>
+        </div>
       </div>
 
       {/* Desktop nav links */}
