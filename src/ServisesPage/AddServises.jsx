@@ -26,7 +26,7 @@ const AddServices = () => {
             userPhoto : user?.photoURL,
         };
 
-        console.log('Service added:', newService);
+        // console.log('Service added:', newService);
         axios.post("http://localhost:3000/service", newService)
         .then(res=>{
             console.log(res.data)

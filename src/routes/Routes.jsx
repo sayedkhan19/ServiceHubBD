@@ -57,23 +57,33 @@ export const router = createBrowserRouter([
       },
       {
         path: "/bookmark",
-        Component: Bookmarks,
+        element:<PrivateRoutes>
+          <Bookmarks></Bookmarks>
+        </PrivateRoutes>,
       },
       {
         path: "/add-service",
-        Component: AddServises,
+        element:<PrivateRoutes>
+          <AddServises></AddServises>
+        </PrivateRoutes>,
       },
       {
         path: "/manage-service",
-        Component: ManageService,
+        element:<PrivateRoutes>
+          <ManageService></ManageService>
+        </PrivateRoutes>,
       },
       {
         path: "/booked-services",
-        Component: BookedServices,
+        element:<PrivateRoutes>
+          <BookedServices></BookedServices>
+        </PrivateRoutes>,
       },
       {
         path: "/service-to-do",
-        Component: ServiceToDo,
+        element:<PrivateRoutes>
+          <ServiceToDo></ServiceToDo>
+        </PrivateRoutes>,
       },
     ],
   },
