@@ -135,12 +135,12 @@ const PopularDetails = () => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
-        className="bg-white max-w-xl mx-auto p-6 rounded shadow-lg"
+        className="bg-white max-w-xl mx-auto p-6 rounded shadow-lg text-black"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
         <h2 className="text-xl font-bold mb-4 cursor-pointer text-purple-700">Book This Service</h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4 text-black">
           <input
             name="userName"
             value={formData.userName}
@@ -160,7 +160,7 @@ const PopularDetails = () => {
             name="date"
             value={formData.date}
             onChange={handleInputChange}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded bg-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Service Date"
           />
           <textarea
