@@ -26,10 +26,10 @@ const AddServices = () => {
             userPhoto : user?.photoURL,
         };
 
-        // console.log('Service added:', newService);
-        axios.post("http://localhost:3000/service", newService)
+        
+        axios.post("https://service-provider-code-server.vercel.app/service", newService)
         .then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.insertedId){
             toast.success("Service add successfully")
             }

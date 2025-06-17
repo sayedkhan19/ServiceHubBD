@@ -8,7 +8,7 @@ import { myServicePromise } from '../api/serviceApi';
 
 const ManageService = () => {
     const {user} = useContext(AuthContext);
-    console.log("Token in the context:",user?.accessToken)
+    // console.log("Token in the context:",user?.accessToken)
 
 
     return (

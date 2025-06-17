@@ -54,6 +54,7 @@ export const router = createBrowserRouter([
         path: "/allservices",
         Component: AllServices,
         loader: () => fetch("../popularServices.json"),
+        hydrateFallbackElement:<span className="loading loading-bars loading-xl"></span>,
       },
       {
         path: "/bookmark",
