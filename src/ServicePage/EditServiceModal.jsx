@@ -7,7 +7,7 @@ const EditServiceModal = ({ isOpen, onClose, onSubmit, service }) => {
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Edit Service"
-      className="max-w-7xl mx-auto mt-8 bg-white p-8 rounded shadow-lg outline-none h-[90vh] overflow-y-auto lg:grid lg:grid-cols-2 lg:gap-8"
+      className="max-w-7xl mx-auto mt-8 text-black bg-white p-8 rounded shadow-lg outline-none h-[90vh] overflow-y-auto lg:grid lg:grid-cols-2 lg:gap-8"
       overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start overflow-auto"
     >
       <h2 className="text-3xl font-bold mb-6 col-span-2">Edit Service</h2>

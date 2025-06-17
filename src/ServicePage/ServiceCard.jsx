@@ -28,7 +28,7 @@ const ServiceCard = ({ service, onEdit, onDelete }) => {
               alt="Provider"
               className="w-10 h-10 rounded-full"
             />
-            <span className="text-sm font-medium">{service.userName}</span>
+            <span className="text-sm font-medium text-black">{service.userName}</span>
           </div>
 
           <div className="space-x-2">
