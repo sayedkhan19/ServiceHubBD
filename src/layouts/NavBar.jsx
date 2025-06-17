@@ -103,7 +103,7 @@ const NavBar = () => {
           </ul>
         </div>
         <div className='flex items-center gap-1'>
-          <img className='h-10 w-10' src={logoImg} alt="logo" />
+          <img className='h-10 w-10 hidden lg:block' src={logoImg} alt="logo" />
           <NavLink to="/" className="font-bold text-xl hidden lg:block">ServiceHubBD</NavLink>
         </div>
       </div>
@@ -117,10 +117,12 @@ const NavBar = () => {
 
       {/* User avatar and logout */}
       <div className="navbar-end flex items-center gap-3">
+        <div><input type="checkbox" value="night" className="toggle theme-controller" /></div>
         {user && (
           <>
+          
             <img
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-8 h-8 rounded-full object-cover"
               src={user.photoURL || "https://i.ibb.co/2kRTPqR/default-user.png"}
               alt="User"
               title={user.displayName || "User"}

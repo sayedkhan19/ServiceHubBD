@@ -51,7 +51,7 @@ const ServiceToDo = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 bg-[#FFFFFF]">
       <title>Service-To-Do</title>
       <h2 className="text-3xl font-bold text-purple-700 mb-6">My Bookings</h2>
 
@@ -59,7 +59,7 @@ const ServiceToDo = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
             <thead className="bg-purple-100">
-              <tr>
+              <tr className='bg-[#FFFFFF] text-black'>
                 <th className="py-3 px-4 border">Service</th>
                 <th className="py-3 px-4 border">Customer</th>
                 <th className="py-3 px-4 border">Price</th>
@@ -70,7 +70,7 @@ const ServiceToDo = () => {
             </thead>
             <tbody>
               {bookings && bookings?.map((item) => (
-                <tr key={item._id} className="text-center">
+                <tr key={item._id} className="text-center text-black">
                   <td className="py-2 px-4 border">{item.name}</td>
                   <td className="py-2 px-4 border">{item.userName}</td>
                   <td className="py-2 px-4 border">${item.price}</td>
