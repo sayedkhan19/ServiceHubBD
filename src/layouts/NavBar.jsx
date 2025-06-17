@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import logoImg from "../../src/assets/beauty.png";
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
+import ThemeToggle from './ThemeToggle'; 
 
 
 const NavBar = () => {
@@ -117,7 +118,11 @@ const NavBar = () => {
 
       {/* User avatar and logout */}
       <div className="navbar-end flex items-center gap-3">
-        <div><input type="checkbox" value="night" className="toggle theme-controller" /></div>
+        <div>
+          {/* <input type="checkbox" value="night" className="toggle theme-controller" /> */}
+          <div><ThemeToggle /></div>
+
+          </div>
         {user && (
           <>
           
