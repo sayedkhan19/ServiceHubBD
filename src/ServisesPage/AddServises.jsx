@@ -43,6 +43,7 @@ const AddServices = () => {
 
     return (
         <div className="max-w-xl mx-auto mt-10 px-6 py-8 bg-[#F3E8FF] rounded-xl shadow-md">
+            <title>Add service</title>
             <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Add a New Service</h2>
             <form onSubmit={handleAddService} className="space-y-5">
                 <div>
@@ -114,7 +115,7 @@ const AddServices = () => {
 
                 <button
                     type="submit"
-                    className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300"
+                    className="w-full cursor-pointer bg-purple-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300"
                 >
                     Add
                 </button>

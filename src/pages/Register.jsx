@@ -52,7 +52,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen bg-[#F2F8FC] flex items-center justify-center px-4">
-      <title>Roommate || Register</title>
+      <title>Register</title>
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8">
         <h1 className="text-3xl font-bold text-center text-pink-600 mb-6">
           Register Your Account

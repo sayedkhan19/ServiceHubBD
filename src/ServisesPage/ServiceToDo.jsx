@@ -52,6 +52,7 @@ const ServiceToDo = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <title>Service-To-Do</title>
       <h2 className="text-3xl font-bold text-purple-700 mb-6">My Bookings</h2>
 
       {bookings.length > 0 ? (
@@ -68,7 +69,7 @@ const ServiceToDo = () => {
               </tr>
             </thead>
             <tbody>
-              {bookings.map((item) => (
+              {bookings && bookings?.map((item) => (
                 <tr key={item._id} className="text-center">
                   <td className="py-2 px-4 border">{item.name}</td>
                   <td className="py-2 px-4 border">{item.userName}</td>
@@ -78,7 +79,7 @@ const ServiceToDo = () => {
                     <select
                       value={item.status || 'Pending'}
                       onChange={(e) => updateStatus(item._id, e.target.value)}
-                      className="border border-gray-300 rounded p-1 text-center"
+                      className="border border-gray-300 rounded p-1 text-center cursor-pointer"
                     >
                       <option value="Pending">Pending</option>
                       <option value="Working">Working</option>
@@ -88,13 +89,13 @@ const ServiceToDo = () => {
                   <td className="py-2 px-4 border flex gap-2 justify-center">
                     <button
                       onClick={() => handleDetailsClick(item._id)}
-                      className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded"
+                      className="bg-purple-500 cursor-pointer hover:bg-purple-600 text-white px-3 py-1 rounded"
                     >
                       Details
                     </button>
                     <button
                       onClick={() => handleRemoveBooking(item._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                      className="bg-red-500 hover:bg-red-600 cursor-pointer text-white px-3 py-1 rounded"
                     >
                       Remove
                     </button>

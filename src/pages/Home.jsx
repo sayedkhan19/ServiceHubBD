@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 const Home = () => {
     return (
         <div>
-
+<title>Home</title>
           <div>
             <Slider></Slider>
           </div>

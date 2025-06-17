@@ -117,7 +117,7 @@ const PopularDetails = () => {
           {!booked ? (
             <button
               onClick={handleBookMark}
-              className="my-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+              className="my-4 cursor-pointer bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
             >
               Book This Service
             </button>
@@ -138,7 +138,7 @@ const PopularDetails = () => {
         className="bg-white max-w-xl mx-auto p-6 rounded shadow-lg"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
-        <h2 className="text-xl font-bold mb-4 text-purple-700">Book This Service</h2>
+        <h2 className="text-xl font-bold mb-4 cursor-pointer text-purple-700">Book This Service</h2>
 
         <form className="space-y-4">
           <input
@@ -174,7 +174,7 @@ const PopularDetails = () => {
           <button
             type="button"
             onClick={handleConfirmBooking}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 w-full"
+            className="bg-purple-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-purple-700 w-full"
           >
             Book Now
           </button>

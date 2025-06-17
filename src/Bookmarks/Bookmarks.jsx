@@ -26,6 +26,7 @@ const Bookmarks = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
+      <title>BookMarked</title>
       <h2 className="text-3xl font-bold text-purple-700 mb-8 border-b pb-2 text-center md:text-left">My Booked Services</h2>
 
       {bookings?.length > 0 ? (
@@ -62,7 +63,7 @@ const Bookmarks = () => {
 
                 <button
                   onClick={() => handleRemoveBooking(item._id)}
-                  className="mt-4 w-max bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow-sm transition-colors duration-200 self-start"
+                  className="mt-4 w-max cursor-pointer bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow-sm transition-colors duration-200 self-start"
                   aria-label={`Remove booking for ${item.name}`}
                 >
                   Remove Booking
