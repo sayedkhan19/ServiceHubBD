@@ -13,13 +13,19 @@ const testimonials = [
     feedback: "Affordable and professional. My haircut and styling were perfect.",
     location: "Gulshan, Dhaka",
     image: "https://i.pravatar.cc/150?img=2"
+  },
+  {
+    name: "Hafezz Ahmed",
+    feedback: "I loved the attention to detail! The team really listens to what you want.",
+    location: "Banani, Dhaka",
+    image: "https://i.pravatar.cc/150?img=3"
   }
 ];
 
 const Testimonials = () => {
   return (
-    <section className="bg-white py-12 px-4">
-      <div className="max-w-5xl mx-auto text-center">
+    <section className="bg-white py-12 w-full">
+      <div className="w-full mx-auto text-center">
         <motion.h2 
           className="text-3xl font-bold mb-8 text-purple-700"
           initial={{ opacity: 0, y: -30 }}
@@ -28,9 +34,8 @@ const Testimonials = () => {
         >
           What Our Clients Say
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials &&
-          testimonials?.map((t, i) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {testimonials.map((t, i) => {
             const ref = useRef(null);
             const inView = useInView(ref, { threshold: 0.4 });
             const controls = useAnimation();
