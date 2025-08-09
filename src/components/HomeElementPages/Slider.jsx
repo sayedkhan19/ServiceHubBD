@@ -12,7 +12,7 @@ const Slider = () => {
   const slides = [slider1, slider2, slider3];
 
   return (
-    <div className="w-full px-4 py-4">
+    <div className="w-full py-4">
       <div className="w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
         <Swiper
           spaceBetween={0}
