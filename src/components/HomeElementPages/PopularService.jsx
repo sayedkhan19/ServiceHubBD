@@ -39,7 +39,7 @@ const PopularService = () => {
                   : service.description}
               </p>
 
-              <div className="flex items-center gap-3 mb-4">
+              {/* <div className="flex items-center gap-3 mb-4">
                 <strong className="text-gray-700">Provider:</strong>
                 <img
                   className="rounded-full w-10 h-10 object-cover border-2 border-purple-600"
@@ -56,7 +56,7 @@ const PopularService = () => {
 
               <p className="text-gray-600 mb-6">
                 <strong>Area:</strong> {service.area}
-              </p>
+              </p> */}
 
               <NavLink
                 to={`/popular-details/${service._id}`}
