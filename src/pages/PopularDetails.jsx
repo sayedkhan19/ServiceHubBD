@@ -10,9 +10,8 @@ const PopularDetails = () => {
   const services = useLoaderData();
   const { id } = useParams();
   const [selectedService, setSelectedService] = useState(null);
-  const [booked, setBooked] = useState(false); // changed from bookmarked -> booked
+  const [booked, setBooked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
@@ -22,39 +21,45 @@ const PopularDetails = () => {
     userName: ''
   });
 
+  // Fetch service details
   useEffect(() => {
     const details = services.find(service => service._id === id);
     setSelectedService(details);
 
-    // Check if current user already booked this service
-    const bookedServices = JSON.parse(localStorage.getItem('bookedServices')) || [];
-    const alreadyBooked = bookedServices.some(
-      (booking) => booking._id === id && booking.userEmail === user?.email
-    );
-    setBooked(alreadyBooked);
-
-    if (user) {
+    if (user && details) {
       setFormData(prev => ({
         ...prev,
         userEmail: user.email || '',
         userName: user.displayName || ''
       }));
+
+      checkBookingStatus();
     }
   }, [services, id, user]);
 
-  const handleBookMark = () => {
-    setIsModalOpen(true);
+  // Function to check booking status from DB
+  const checkBookingStatus = async () => {
+    if (!user) return;
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`http://localhost:3000/bookings/check/${id}?email=${user.email}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      setBooked(data.booked);
+    } catch (error) {
+      console.error('Error checking booking status:', error);
+    }
   };
+
+  const handleBookMark = () => setIsModalOpen(true);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = async () => {
     if (!formData.date.trim() || !formData.instruction.trim()) {
       toast.error('Please fill in all required fields!');
       return;
@@ -63,39 +68,44 @@ const PopularDetails = () => {
     if (!selectedService) return;
 
     const bookingData = {
-      ...selectedService,
-      bookingDate: formData.date,
-      instruction: formData.instruction,
-      userEmail: formData.userEmail,
+      serviceId: selectedService._id,
+      name: selectedService.name,
+      image: selectedService.image,
+      price: selectedService.price,
+      area: selectedService.area,
       userName: formData.userName,
-      status: 'Pending'
+      userEmail: formData.userEmail,
+      bookingDate: formData.date,
+      instruction: formData.instruction
     };
 
-    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch('http://localhost:3000/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(bookingData)
+      });
 
-    // Prevent duplicate booking on confirm button (extra safety)
-    const isAlreadyBooked = stored.some(
-      (booking) => booking._id === selectedService._id && booking.userEmail === user?.email
-    );
-    if (isAlreadyBooked) {
-      toast.error('You have already booked this service!');
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message || 'Booking failed');
+        return;
+      }
+
+      toast.success('Service booked successfully!');
+      setBooked(true); // Immediately disable button
       setIsModalOpen(false);
-      setBooked(true);
-      return;
+      setFormData(prev => ({ ...prev, date: '', instruction: '' }));
+
+    } catch (error) {
+      console.error(error);
+      toast.error('Something went wrong!');
     }
-
-    stored.push(bookingData);
-    localStorage.setItem('bookedServices', JSON.stringify(stored));
-
-    toast.success('Service booked successfully!');
-    setIsModalOpen(false);
-    setBooked(true);
-
-    setFormData(prev => ({
-      ...prev,
-      date: '',
-      instruction: ''
-    }));
   };
 
   return (
@@ -139,43 +149,12 @@ const PopularDetails = () => {
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
         <h2 className="text-xl font-bold mb-4 cursor-pointer text-purple-700">Book This Service</h2>
-
         <form className="space-y-4 text-black">
-          <input
-            name="userName"
-            value={formData.userName}
-            readOnly
-            className="w-full p-2 border rounded"
-            placeholder="Your Name"
-          />
-          <input
-            name="userEmail"
-            value={formData.userEmail}
-            readOnly
-            className="w-full p-2 border rounded"
-            placeholder="Your Email"
-          />
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded bg-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
-            placeholder="Service Date"
-          />
-          <textarea
-            name="instruction"
-            value={formData.instruction}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-            placeholder="Special Instructions"
-          />
-
-          <button
-            type="button"
-            onClick={handleConfirmBooking}
-            className="bg-purple-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-purple-700 w-full"
-          >
+          <input name="userName" value={formData.userName} readOnly className="w-full p-2 border rounded" placeholder="Your Name" />
+          <input name="userEmail" value={formData.userEmail} readOnly className="w-full p-2 border rounded" placeholder="Your Email" />
+          <input type="date" name="date" value={formData.date} onChange={handleInputChange} className="w-full p-2 border rounded bg-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-purple-500" />
+          <textarea name="instruction" value={formData.instruction} onChange={handleInputChange} className="w-full p-2 border rounded" placeholder="Special Instructions" />
+          <button type="button" onClick={handleConfirmBooking} className="bg-purple-600 text-white px-4 py-2 cursor-pointer rounded hover:bg-purple-700 w-full">
             Book Now
           </button>
         </form>
