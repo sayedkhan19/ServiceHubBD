@@ -80,6 +80,12 @@ const NavBar = () => {
           </ul>
         </details>
       </li>
+
+        <li>
+              <NavLink to="/profile" className={({ isActive }) => isActive ? "font-bold border-b-2" : "font-semibold text-gray-500"}>
+                Profile
+              </NavLink>
+            </li>
     </>
   );
 

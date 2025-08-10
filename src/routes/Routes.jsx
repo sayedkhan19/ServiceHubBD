@@ -14,6 +14,7 @@ import BookedServices from "../ServisesPage/BookedServices";
 import ServiceToDo from "../ServisesPage/ServiceToDo";
 import AllServices from "../pages/AllServices";
 import Bookmarks from "../Bookmarks/Bookmarks";
+import Profile from "../pages/Profile";
 
 
 export const router = createBrowserRouter([
@@ -86,6 +87,12 @@ export const router = createBrowserRouter([
           <ServiceToDo></ServiceToDo>
         </PrivateRoutes>,
       },
+      {
+        path: "/profile",
+        element: <PrivateRoutes>
+          <Profile></Profile>
+        </PrivateRoutes>
+      }
     ],
   },
 ]);
