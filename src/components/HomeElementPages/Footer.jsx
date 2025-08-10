@@ -9,10 +9,10 @@ const Footer = () => {
 
         {/* Top Centered Links */}
         <div className="flex justify-center flex-wrap gap-6 text-sm font-medium">
-          <a href="#" className="hover:text-white transition">Support</a>
-          <a href="#" className="hover:text-white transition">Contact</a>
-          <a href="#" className="hover:text-white transition">Help Center</a>
-          <a href="#" className="hover:text-white transition">Privacy Policy</a>
+          <a href="https://www.facebook.com/saeidkhan003/" target='_blank' className="hover:text-white transition">Support</a>
+          <a href="https://www.facebook.com/saeidkhan003/" target='_blank' className="hover:text-white transition">Contact</a>
+          <a href="https://www.facebook.com/saeidkhan003/" target='_blank' className="hover:text-white transition">Help Center</a>
+          <a href="https://www.facebook.com/saeidkhan003/" target='_blank' className="hover:text-white transition">Privacy Policy</a>
         </div>
 
         {/* Middle Row: Logo and Social Icons */}
