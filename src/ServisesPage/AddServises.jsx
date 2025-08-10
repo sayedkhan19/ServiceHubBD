@@ -31,7 +31,8 @@ const AddServices = () => {
         .then(res=>{
             // console.log(res.data)
             if(res.data.insertedId){
-            toast.success("Service add successfully")
+            toast.success("Service add successfully");
+            form.reset();
             }
             
         })
