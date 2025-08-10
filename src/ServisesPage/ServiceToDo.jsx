@@ -6,60 +6,108 @@ import { useNavigate } from 'react-router';
 const ServiceToDo = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Fetch all bookings from backend filtered by user email
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
-    const userBookings = stored.filter(item => item.userEmail === user?.email);
-    setBookings(userBookings);
-  }, [user?.email]);
+    if (!user?.email) return;
+
+    user.getIdToken().then(token => {
+      fetch(`http://localhost:3000/bookings/all?email=${encodeURIComponent(user.email)}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch bookings');
+          return res.json();
+        })
+        .then(data => {
+          setBookings(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          toast.error('Failed to load bookings.');
+          setLoading(false);
+        });
+    });
+  }, [user]);
 
   const updateStatus = (id, newStatus) => {
-    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
-    
-    // Update the status of the booking for the current user
-    const updated = stored.map(item => {
-      if (item._id === id && item.userEmail === user?.email) {
-        return { ...item, status: newStatus };
-      }
-      return item;
+    if (!user) return;
+
+    user.getIdToken().then(token => {
+      fetch(`http://localhost:3000/bookings/${id}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to update status');
+          return res.json();
+        })
+        .then(() => {
+          setBookings(prev =>
+            prev.map(item => (item._id === id ? { ...item, status: newStatus } : item))
+          );
+          toast.success(`Status updated to "${newStatus}"`);
+        })
+        .catch(err => {
+          console.error(err);
+          toast.error('Failed to update status');
+        });
     });
-
-    localStorage.setItem('bookedServices', JSON.stringify(updated));
-
-    // Update UI bookings state to reflect change
-    const userBookings = updated.filter(item => item.userEmail === user?.email);
-    setBookings(userBookings);
-
-    toast.success(`Status updated to "${newStatus}"`);
   };
 
   const handleRemoveBooking = (id) => {
-    const stored = JSON.parse(localStorage.getItem('bookedServices')) || [];
+    if (!user) return;
 
-    const updated = stored.filter(item => !(item._id === id && item.userEmail === user?.email));
-    localStorage.setItem('bookedServices', JSON.stringify(updated));
-
-    const userBookings = updated.filter(item => item.userEmail === user?.email);
-    setBookings(userBookings);
-
-    toast.success('Booking removed!');
+    user.getIdToken().then(token => {
+      fetch(`http://localhost:3000/bookings/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to delete booking');
+          return res.json();
+        })
+        .then(() => {
+          setBookings(prev => prev.filter(item => item._id !== id));
+          toast.success('Booking removed!');
+        })
+        .catch(err => {
+          console.error(err);
+          toast.error('Failed to remove booking');
+        });
+    });
   };
+  
 
   const handleDetailsClick = (id) => {
     navigate(`/popular-details/${id}`);
   };
 
+  if (loading) {
+    return <p className="text-center mt-10 text-gray-500">Loading bookings...</p>;
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 bg-[#FFFFFF]">
       <title>Service-To-Do</title>
-      <h2 className="text-3xl font-bold text-purple-700 mb-6">My Bookings</h2>
+      <h2 className="text-3xl font-bold text-purple-700 mb-6">All Post</h2>
 
       {bookings.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
             <thead className="bg-purple-100">
-              <tr className='bg-[#FFFFFF] text-black'>
+              <tr className="bg-[#FFFFFF] text-black">
                 <th className="py-3 px-4 border">Service</th>
                 <th className="py-3 px-4 border">Customer</th>
                 <th className="py-3 px-4 border">Price</th>
@@ -69,7 +117,7 @@ const ServiceToDo = () => {
               </tr>
             </thead>
             <tbody>
-              {bookings && bookings?.map((item) => (
+              {bookings.map((item) => (
                 <tr key={item._id} className="text-center text-black">
                   <td className="py-2 px-4 border">{item.name}</td>
                   <td className="py-2 px-4 border">{item.userName}</td>
