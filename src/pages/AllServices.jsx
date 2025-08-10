@@ -6,8 +6,10 @@ const AllServices = () => {
   const serviceData = useLoaderData();
   const [searchText, setSearchText] = useState("");
   const [filteredServices, setFilteredServices] = useState([]);
+  const [sortOption, setSortOption] = useState(''); // New: sorting state
   const { loading, setLoading } = useContext(AuthContext);
 
+  // Initial load and search filtering
   useEffect(() => {
     setTimeout(() => {
       setFilteredServices(serviceData);
@@ -15,6 +17,7 @@ const AllServices = () => {
     }, 1000);
   }, [serviceData]);
 
+  // Filter on search text change
   useEffect(() => {
     const filtered = serviceData.filter((service) =>
       service.name.toLowerCase().includes(searchText.toLowerCase())
@@ -22,20 +25,53 @@ const AllServices = () => {
     setFilteredServices(filtered);
   }, [searchText, serviceData]);
 
+  // Sort filteredServices when sortOption changes
+  useEffect(() => {
+    if (!sortOption) return; // No sort selected, do nothing
+
+    let sortedServices = [...filteredServices];
+
+    if (sortOption === 'lowToHigh') {
+      sortedServices.sort((a, b) => Number(a.price) - Number(b.price));
+    } else if (sortOption === 'highToLow') {
+      sortedServices.sort((a, b) => Number(b.price) - Number(a.price));
+    }
+
+    setFilteredServices(sortedServices);
+  }, [sortOption]);
+
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8 w-full">
       <title>All Services</title>
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center text-purple-700">All Services</h1>
 
-        <div className="mb-6">
+        {/* Search + Sort container */}
+        <div className="flex justify-between items-center mb-6 flex-col md:flex-row gap-4">
           <input
             type="text"
             placeholder="Search services..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="w-full p-3 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full md:w-2/3 p-3 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
+
+          {/* Sort dropdown */}
+          <div>
+            <label htmlFor="sort" className="mr-2 font-medium text-gray-700">
+              (Sort by Price):
+            </label>
+            <select
+              id="sort"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="p-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            >
+              <option value="">--Select--</option>
+              <option value="lowToHigh">Price Low to High</option>
+              <option value="highToLow">Price High to Low</option>
+            </select>
+          </div>
         </div>
 
         {loading ? (

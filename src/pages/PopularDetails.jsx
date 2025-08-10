@@ -42,7 +42,7 @@ const PopularDetails = () => {
     if (!user) return;
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:3000/bookings/check/${id}?email=${user.email}`, {
+      const res = await fetch(`https://service-provider-code-server.vercel.app/bookings/check/${id}?email=${user.email}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -81,7 +81,7 @@ const PopularDetails = () => {
 
     try {
       const token = await user.getIdToken();
-      const res = await fetch('http://localhost:3000/bookings', {
+      const res = await fetch('https://service-provider-code-server.vercel.app/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

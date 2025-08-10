@@ -12,7 +12,7 @@ const Bookmarks = () => {
 
     // Get Firebase token then fetch bookings with Authorization header
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/posts?email=${encodeURIComponent(user.email)}`, {
+      fetch(`https://service-provider-code-server.vercel.app/posts?email=${encodeURIComponent(user.email)}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ const Bookmarks = () => {
 
   const handleRemoveBooking = (id) => {
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/posts/${id}`, {
+      fetch(`https://service-provider-code-server.vercel.app/posts/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -16,7 +16,7 @@ const ServiceToDo = () => {
     if (!user) return;
 
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/bookings/all`, {
+      fetch(`https://service-provider-code-server.vercel.app/bookings/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +41,7 @@ const ServiceToDo = () => {
     if (!user) return;
 
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/bookings/${id}/status`, {
+      fetch(`https://service-provider-code-server.vercel.app/bookings/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const ServiceToDo = () => {
     if (!user) return;
 
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/bookings/${id}`, {
+      fetch(`https://service-provider-code-server.vercel.app/bookings/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ const ServiceToDo = () => {
   return (
     <div className="w-full mx-auto px-4 py-8 bg-[#F9FAFB]">
       <title>Service-To-Do</title>
-      <h2 className="text-3xl font-bold text-purple-700 mb-6">All Post</h2>
+      <h2 className="text-3xl font-bold text-purple-700 mb-6">All Booking</h2>
 
       {bookings.length > 0 ? (
         <div className="overflow-x-auto">
@@ -207,3 +207,4 @@ const ServiceToDo = () => {
 };
 
 export default ServiceToDo;
+
