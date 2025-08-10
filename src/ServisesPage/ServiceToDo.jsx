@@ -11,12 +11,12 @@ const ServiceToDo = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
 
-  // Fetch all bookings from backend filtered by user email
+  // Fetch all bookings from backend (no email filter)
   useEffect(() => {
-    if (!user?.email) return;
+    if (!user) return;
 
     user.getIdToken().then(token => {
-      fetch(`http://localhost:3000/bookings/all?email=${encodeURIComponent(user.email)}`, {
+      fetch(`http://localhost:3000/bookings/all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -108,7 +108,7 @@ const ServiceToDo = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 bg-[#FFFFFF]">
+    <div className="w-full mx-auto px-4 py-8 bg-[#F9FAFB]">
       <title>Service-To-Do</title>
       <h2 className="text-3xl font-bold text-purple-700 mb-6">All Post</h2>
 
