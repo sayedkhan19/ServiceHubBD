@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
 
 const ServiceToDo = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+
+  // Modal state
+  const [showModal, setShowModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   // Fetch all bookings from backend filtered by user email
   useEffect(() => {
@@ -88,10 +90,17 @@ const ServiceToDo = () => {
         });
     });
   };
-  
 
-  const handleDetailsClick = (id) => {
-    navigate(`/popular-details/${id}`);
+  // Open modal with booking details
+  const handleDetailsClick = (booking) => {
+    setSelectedBooking(booking);
+    setShowModal(true);
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedBooking(null);
   };
 
   if (loading) {
@@ -136,7 +145,7 @@ const ServiceToDo = () => {
                   </td>
                   <td className="py-2 px-4 border flex gap-2 justify-center">
                     <button
-                      onClick={() => handleDetailsClick(item._id)}
+                      onClick={() => handleDetailsClick(item)}
                       className="bg-purple-500 cursor-pointer hover:bg-purple-600 text-white px-3 py-1 rounded"
                     >
                       Details
@@ -155,6 +164,43 @@ const ServiceToDo = () => {
         </div>
       ) : (
         <p className="text-gray-500">No bookings found.</p>
+      )}
+
+      {/* Modal */}
+      {showModal && selectedBooking && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white rounded-lg max-w-lg w-full p-6 relative"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900 font-bold text-xl"
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+
+            <h3 className="text-2xl font-bold text-purple-700 mb-4">{selectedBooking.name}</h3>
+
+            <img
+              src={selectedBooking.image || 'https://via.placeholder.com/400x250'}
+              alt={selectedBooking.name}
+              className="w-full h-48 object-cover rounded mb-4"
+            />
+
+            <p><strong>Customer:</strong> {selectedBooking.userName}</p>
+            <p><strong>Email:</strong> {selectedBooking.userEmail}</p>
+            <p><strong>Booking Date:</strong> {selectedBooking.bookingDate}</p>
+            <p><strong>Instructions:</strong> {selectedBooking.instruction || 'N/A'}</p>
+            <p><strong>Area:</strong> {selectedBooking.area || 'N/A'}</p>
+            <p><strong>Price:</strong> ${selectedBooking.price}</p>
+            <p><strong>Status:</strong> {selectedBooking.status || 'Pending'}</p>
+          </div>
+        </div>
       )}
     </div>
   );
