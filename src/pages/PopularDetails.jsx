@@ -99,7 +99,7 @@ const PopularDetails = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-10">
+    <div className="w-full mx-auto px-6 py-10 bg-[#F9FAFB]">
       {selectedService ? (
         <>
           <img src={selectedService.image} alt={selectedService.name} className="rounded-xl w-full h-64 object-cover mb-6" />
