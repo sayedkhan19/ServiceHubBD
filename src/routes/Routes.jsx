@@ -15,6 +15,8 @@ import ServiceToDo from "../ServisesPage/ServiceToDo";
 import AllServices from "../pages/AllServices";
 import Bookmarks from "../Bookmarks/Bookmarks";
 import Profile from "../pages/Profile";
+import AboutUI from "../pages/AboutUI";
+import Contact from "../pages/Contact";
 
 
 export const router = createBrowserRouter([
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
       {
         path: "/popular-services",
         Component: PopularService,
+      },
+      {
+        path: "/about",
+        Component: AboutUI,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/popular-details/:id",

@@ -5,10 +5,12 @@ import Testimonials from '../components/HomeElementPages/Testimonials';
 import StatsSection from '../components/HomeElementPages/StatsSection';
 import Slider from '../components/HomeElementPages/Slider';
 import { Link } from 'react-router';
+import Advertise from './Advertise';
+import NewsSection from './NewsSection';
 
 const Home = () => {
     return (
-        <div>
+        <div className='bg-[#F9FAFB]'>
 <title>Home</title>
           <div>
             <Slider></Slider>
@@ -26,12 +28,20 @@ const Home = () => {
         </Link>
       </div> 
 
-
       <div>
-        <WhyChooseUs></WhyChooseUs>
+        <Advertise></Advertise>
       </div>
+
+
+      {/* <div>
+        <WhyChooseUs></WhyChooseUs>
+      </div> */}
        <div>
         <StatsSection></StatsSection>
+       </div>
+
+       <div>
+        <NewsSection></NewsSection>
        </div>
        <div>
         <Testimonials></Testimonials>

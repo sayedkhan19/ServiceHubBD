@@ -36,7 +36,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 sm:p-10 mt-10 bg-white rounded-lg shadow-md">
+    <div className="max-w-4xl mx-auto p-6 sm:p-10 mt-10 bg-white rounded-lg shadow-md bg-[#F9FAFB]">
       <title>My Profile</title>
 
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
