@@ -25,7 +25,7 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="bg-purple-100 py-12 px-4">
+    <section className="bg-purple-100 py-12 px-4 rounded-xl">
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2 
           className="text-3xl font-bold mb-10 text-purple-800"

@@ -36,9 +36,9 @@ const newsItems = [
 
 const NewsSection = () => {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
-      <h2 className="text-4xl font-extrabold text-center mb-4 text-gray-800">Latest News</h2>
-      <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+    <section className="w-full mx-auto  py-16">
+      <h2 className="text-4xl font-extrabold text-center mb-4 text-purple-600">Latest News</h2>
+      <p className="text-center mb-12 max-w-2xl mx-auto text-purple-700">
         Stay updated with the latest trends, tips, and news from the beauty and grooming world.
       </p>
 

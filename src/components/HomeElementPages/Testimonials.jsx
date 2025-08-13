@@ -24,7 +24,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="bg-white py-12 w-full">
+    <section className=" py-12 w-full">
       <div className="w-full mx-auto text-center">
         <motion.h2 
           className="text-3xl font-bold mb-8 text-purple-700"

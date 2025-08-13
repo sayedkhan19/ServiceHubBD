@@ -7,10 +7,12 @@ import Slider from '../components/HomeElementPages/Slider';
 import { Link } from 'react-router';
 import Advertise from './Advertise';
 import NewsSection from './NewsSection';
+import FeaturedProfessionals from './FeaturedProfessionals';
+import servicesData from '../.././public/popularServices.json';
 
 const Home = () => {
     return (
-        <div className='bg-[#F9FAFB]'>
+        <div className=''>
 <title>Home</title>
           <div>
             <Slider></Slider>
@@ -42,6 +44,10 @@ const Home = () => {
 
        <div>
         <NewsSection></NewsSection>
+       </div>
+
+       <div>
+        <FeaturedProfessionals services={servicesData}></FeaturedProfessionals>
        </div>
        <div>
         <Testimonials></Testimonials>

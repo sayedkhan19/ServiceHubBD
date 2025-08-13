@@ -11,7 +11,7 @@ const PopularService = () => {
   }, []);
 
   return (
-    <div className="py-10 bg-white">
+    <div className="py-10">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-purple-700">
         Popular Beauty & Grooming Services
       </h2>
