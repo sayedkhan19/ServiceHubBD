@@ -28,7 +28,7 @@ const StatsSection = () => {
     <section className="bg-purple-100 py-12 px-4 rounded-xl">
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2 
-          className="text-3xl font-bold mb-10 text-purple-800"
+          className="lg:text-3xl md:text-xl text-xl font-bold mb-10 text-purple-800"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

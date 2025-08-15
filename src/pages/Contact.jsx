@@ -48,7 +48,7 @@ const Contact = () => {
     <section className="w-full mx-auto px-6 py-16 text-gray-800 bg-[#F9FAFB]">
       {/* <Toaster position="top-center" reverseOrder={false} /> */}
 
-      <h2 className="text-4xl font-extrabold text-center mb-8 text-purple-600">Contact Us</h2>
+      <h2 className="lg:text-3xl md:text-xl text-xl font-extrabold text-center mb-8 text-purple-600">Contact Us</h2>
       <p className="text-center mb-12 text-lg max-w-xl mx-auto">
         Have questions or want to book a service? Reach out to us and we’ll get back to you as soon as possible.
       </p>

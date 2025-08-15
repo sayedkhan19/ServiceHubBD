@@ -44,7 +44,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#F2F8FC] px-4">
       <title>Login</title>
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-3xl font-bold text-center text-pink-600 mb-6">Login to Your Account</h1>
+        <h1 className="lg:text-3xl md:text-xl text-xl font-bold text-center text-purple-600 mb-6">Login to Your Account</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -81,7 +81,7 @@ const Login = () => {
 
         <p className="text-center mt-4 text-sm">
           Don't have an account?
-          <Link to="/register" className="text-pink-500 font-semibold hover:underline ml-1">
+          <Link to="/register" className="text-blue-500 font-semibold hover:underline ml-1">
             Register
           </Link>
         </p>

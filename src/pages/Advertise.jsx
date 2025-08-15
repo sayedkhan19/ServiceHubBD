@@ -37,7 +37,7 @@ const Advertise = () => {
 
   return (
     <section className="w-full mx-auto py-16">
-      <h2 className="text-4xl font-extrabold text-center mb-12 text-purple-600">
+      <h2 className="lg:text-3xl md:text-xl text-xl font-extrabold text-center mb-12 text-purple-600">
         Why Choose Us?
       </h2>
 

@@ -15,7 +15,7 @@ const FeaturedProfessionals = ({ services }) => {
     <section className="py-12 bg-[#F9FAFB] w-full rounded-xl">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-6">
         <h2
-          className="text-3xl font-bold text-purple-600 text-center mb-10"
+          className="lg:text-3xl md:text-xl text-xl font-bold text-purple-600 text-center mb-10"
           data-aos="fade-up"
         >
           Featured Professionals

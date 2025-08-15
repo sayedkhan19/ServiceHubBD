@@ -27,7 +27,7 @@ const Testimonials = () => {
     <section className=" py-12 w-full">
       <div className="w-full mx-auto text-center">
         <motion.h2 
-          className="text-3xl font-bold mb-8 text-purple-700"
+          className="lg:text-3xl md:text-xl text-xl font-bold mb-8 text-purple-700"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

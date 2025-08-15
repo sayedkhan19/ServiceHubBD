@@ -59,7 +59,7 @@ const Register = () => {
     <div className="min-h-screen bg-[#F2F8FC] flex items-center justify-center px-4">
       <title>Register</title>
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-3xl font-bold text-center text-pink-600 mb-6">
+        <h1 className="lg:text-3xl md:text-xl text-xl font-bold text-center text-purple-600 mb-6">
           Register Your Account
         </h1>
 

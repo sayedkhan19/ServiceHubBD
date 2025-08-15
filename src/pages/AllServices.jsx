@@ -38,7 +38,7 @@ const AllServices = () => {
     <div className="min-h-screen bg-gray-50 px-4 py-8 w-full">
       <title>All Services</title>
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center text-purple-700">
+        <h1 className="lg:text-3xl md:text-xl text-xl font-bold mb-6 text-center text-purple-700">
           All Services
         </h1>
 

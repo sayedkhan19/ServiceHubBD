@@ -17,7 +17,7 @@ const Home = () => {
           <div>
             <Slider></Slider>
           </div>
-       <div className="text-center my-8">
+       <div className="text-center my-5">
         <Suspense fallback={<span className="loading loading-spinner text-primary"></span>}>
           <PopularService />
         </Suspense>
